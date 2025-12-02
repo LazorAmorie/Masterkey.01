@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Input from '../components/Input';
 import Button from '../components/Button';
-import './Login.css';
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -58,14 +57,22 @@ const Login = () => {
     };
 
     return (
-        <div className="login-container">
-            <div className="login-card">
-                <div className="login-header">
-                    <h1 className="login-title">Welcome Back</h1>
-                    <p className="login-subtitle">Enter your credentials to access your account</p>
+        <div className="flex justify-center items-center min-h-screen w-full bg-gradient-to-br from-[#2a2a2a] to-[#1a1a1a] relative overflow-hidden">
+            {/* Background decorative elements */}
+            <div className="absolute top-[-10%] left-[-10%] w-1/2 h-1/2 bg-primary/15 rounded-full blur-[80px] pointer-events-none"></div>
+            <div className="absolute bottom-[-10%] right-[-10%] w-1/2 h-1/2 bg-primary-hover/15 rounded-full blur-[80px] pointer-events-none"></div>
+
+            <div className="relative z-10 bg-white/[0.03] backdrop-blur-xl border border-white/10 p-12 rounded-3xl w-full max-w-[420px] shadow-2xl flex flex-col gap-8">
+                <div className="text-center">
+                    <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+                        Welcome Back
+                    </h1>
+                    <p className="text-white/60 text-base">
+                        Enter your credentials to access your account
+                    </p>
                 </div>
 
-                <form className="login-form" onSubmit={handleSubmit}>
+                <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
                     <Input
                         id="username"
                         label="Username"
@@ -85,20 +92,27 @@ const Login = () => {
                         error={errors.password}
                     />
 
-                    {errors.form && <div className="input-error-message" style={{ textAlign: 'center' }}>{errors.form}</div>}
+                    {errors.form && (
+                        <div className="text-xs text-red-500 text-center">{errors.form}</div>
+                    )}
 
                     <Button
                         type="submit"
                         variant="primary"
                         isLoading={isLoading}
-                        style={{ marginTop: '1rem' }}
+                        className="mt-4"
                     >
                         Sign In
                     </Button>
                 </form>
 
-                <div className="login-footer">
-                    <p>Don't have an account? <a href="#" className="login-link">Sign up</a></p>
+                <div className="text-center mt-4 text-sm text-white/60">
+                    <p>
+                        Don't have an account?{' '}
+                        <a href="#" className="text-primary font-medium hover:text-primary-hover hover:underline transition-colors">
+                            Sign up
+                        </a>
+                    </p>
                 </div>
             </div>
         </div>
