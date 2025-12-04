@@ -47,7 +47,7 @@ const Dashboard = () => {
                     <nav className="space-y-2">
                         <button
                             onClick={() => setActiveTab('overview')}
-                            className={`w-full flex items-center gap-4 px-1 py-1 rounded-lg transition-all ${activeTab === 'overview' ? 'bg-purple-600 text-white' : 'hover:bg-white/10'
+                            className={`w-full flex items-center gap-3 px-1 py-1 rounded-lg transition-all ${activeTab === 'overview' ? 'bg-purple-600 text-white' : 'hover:bg-white/10'
                                 }`}
                         >
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
