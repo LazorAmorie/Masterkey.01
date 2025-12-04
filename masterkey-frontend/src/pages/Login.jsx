@@ -48,12 +48,14 @@ const Login = () => {
         try {
             await new Promise(resolve => setTimeout(resolve, 1500));
             console.log('Login successful', formData);
+
             // Handle successful login (e.g., redirect, set auth context)
         } catch (error) {
             console.error('Login failed', error);
             setErrors({ form: 'Login failed. Please try again.' });
         } finally {
             setIsLoading(false);
+            window.location.href = '/dashboard';
         }
     };
 
