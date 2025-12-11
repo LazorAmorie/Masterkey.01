@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Input from '../components/Input';
 import Button from '../components/Button';
 
@@ -47,12 +48,14 @@ const Login = () => {
         try {
             await new Promise(resolve => setTimeout(resolve, 1500));
             console.log('Login successful', formData);
+
             // Handle successful login (e.g., redirect, set auth context)
         } catch (error) {
             console.error('Login failed', error);
             setErrors({ form: 'Login failed. Please try again.' });
         } finally {
             setIsLoading(false);
+            window.location.href = '/dashboard';
         }
     };
 
@@ -109,9 +112,9 @@ const Login = () => {
                 <div className="text-center mt-4 text-sm text-white/60">
                     <p>
                         Don't have an account?{' '}
-                        <a href="#" className="text-primary font-medium hover:text-primary-hover hover:underline transition-colors">
+                        <Link to="/signup" className="text-primary font-medium hover:text-primary-hover hover:underline transition-colors">
                             Sign up
-                        </a>
+                        </Link>
                     </p>
                 </div>
             </div>
