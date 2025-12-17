@@ -15,11 +15,13 @@ const Transaction = sequelize.define('Transaction', {
   transactionId: {
     type: DataTypes.STRING(50),
     allowNull: false,
-    unique: true
+    unique: true,
+    field: 'transaction_id'
   },
   senderId: {
     type: DataTypes.UUID,
     allowNull: false,
+    field: 'sender_id',
     references: {
       model: 'users',
       key: 'id'
@@ -28,6 +30,7 @@ const Transaction = sequelize.define('Transaction', {
   receiverIdentifier: {
     type: DataTypes.STRING(255),
     allowNull: false,
+    field: 'receiver_identifier',
     comment: 'Email, phone, or wallet address of receiver'
   },
   amount: {
@@ -48,6 +51,7 @@ const Transaction = sequelize.define('Transaction', {
   totalAmount: {
     type: DataTypes.DECIMAL(15, 2),
     allowNull: false,
+    field: 'total_amount',
     validate: {
       min: 0.01
     }
@@ -65,6 +69,7 @@ const Transaction = sequelize.define('Transaction', {
   routeMetadata: {
     type: DataTypes.JSONB,
     allowNull: true,
+    field: 'route_metadata',
     comment: 'Additional route-specific metadata'
   }
 }, {
@@ -72,16 +77,16 @@ const Transaction = sequelize.define('Transaction', {
   timestamps: true,
   indexes: [
     {
-      fields: ['transactionId']
+      fields: ['transaction_id']
     },
     {
-      fields: ['senderId']
+      fields: ['sender_id']
     },
     {
       fields: ['status']
     },
     {
-      fields: ['createdAt']
+      fields: ['created_at']
     }
   ]
 });

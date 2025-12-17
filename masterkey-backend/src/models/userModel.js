@@ -39,7 +39,8 @@ const User = sequelize.define('User', {
   walletAddress: {
     type: DataTypes.STRING(100),
     allowNull: false,
-    unique: true
+    unique: true,
+    field: 'wallet_address'
   },
   balance: {
     type: DataTypes.DECIMAL(15, 2),
@@ -51,11 +52,13 @@ const User = sequelize.define('User', {
   },
   isActive: {
     type: DataTypes.BOOLEAN,
-    defaultValue: true
+    defaultValue: true,
+    field: 'is_active'
   },
   lastLogin: {
     type: DataTypes.DATE,
-    allowNull: true
+    allowNull: true,
+    field: 'last_login'
   }
 }, {
   tableName: 'users',
@@ -92,7 +95,7 @@ const User = sequelize.define('User', {
  * @param {string} candidatePassword - Password to compare
  * @returns {Promise<boolean>} - True if password matches
  */
-User.prototype.comparePassword = async function(candidatePassword) {
+User.prototype.comparePassword = async function (candidatePassword) {
   // Need to get the password field which is excluded by default
   const userWithPassword = await User.scope('withPassword').findByPk(this.id);
   return bcrypt.compare(candidatePassword, userWithPassword.password);
@@ -102,7 +105,7 @@ User.prototype.comparePassword = async function(candidatePassword) {
  * Instance method to generate JWT token
  * @returns {string} - JWT token
  */
-User.prototype.toJSON = function() {
+User.prototype.toJSON = function () {
   const values = Object.assign({}, this.get());
   delete values.password;
   return values;
