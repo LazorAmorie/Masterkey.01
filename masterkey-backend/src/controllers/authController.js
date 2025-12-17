@@ -82,6 +82,7 @@ export const signup = async (req, res) => {
       });
     }
     
+    
     // Generate wallet address
     const walletAddress = generateWalletAddress();
     

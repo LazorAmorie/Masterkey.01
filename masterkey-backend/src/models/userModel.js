@@ -44,7 +44,7 @@ const User = sequelize.define('User', {
   },
   balance: {
     type: DataTypes.DECIMAL(15, 2),
-    defaultValue: 10000.00,
+    defaultValue: 00.00,
     allowNull: false,
     validate: {
       min: 0

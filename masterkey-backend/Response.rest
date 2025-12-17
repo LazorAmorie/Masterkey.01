@@ -1,1 +1,14 @@
-GET http://localhost:5000/health
+@Url=http://localhost:5000
+
+GET {{Url}}/health
+
+###
+
+POST {{Url}}/api/auth/signup
+Content-Type: application/json
+
+{
+     "username": "George", 
+     "email": "georgehssein@test.com",
+     "password": "123445"
+}
