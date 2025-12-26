@@ -1,3 +1,4 @@
 node_modules
 .env
 masterkey-backend/.env
+masterkey-backend/Response.rest

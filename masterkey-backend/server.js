@@ -1,6 +1,15 @@
-import express from 'express';
-import cors from 'cors';
-import dotenv from 'dotenv';
+/**
+ * Entry point of the MasterKey backend.
+ * Responsible for:
+ * - Initializing the Express app
+ * - Loading environment variables
+ * - Connecting to the database
+ * - Registering routes & middleware
+ * - Starting and gracefully shutting down the server
+ */
+import express from 'express'; // Core web framework
+import cors from 'cors';// Cross-Origin Resource Sharing (frontend access)
+import dotenv from 'dotenv';// Environment variable loader
 import sequelize, { testConnection, syncDatabase } from './src/config/postgres.js';
 import logger from './src/utils/logger.js';
 
@@ -20,9 +29,10 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 /**
- * Middleware Configuration
+ * Global Middleware
+ * These run for every incoming request
  */
-app.use(cors()); // Enable CORS
+app.use(cors()); // Allow frontend apps to access the API
 app.use(express.json()); // Parse JSON bodies
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 
@@ -33,7 +43,11 @@ app.use((req, res, next) => {
 });
 
 /**
- * Health Check Endpoint
+ * Health Check
+ * Used by:
+ * - Monitoring tools
+ * - Load balancers
+ * - Dev sanity checks
  */
 app.get('/health', (req, res) => {
   res.status(200).json({
@@ -45,7 +59,8 @@ app.get('/health', (req, res) => {
 });
 
 /**
- * API Routes
+ * API Route Registration
+ * Each route file owns its own business logic
  */
 app.use('/api/auth', authRoutes);
 app.use('/api/transaction', transactionRoutes);
@@ -77,6 +92,7 @@ app.get('/', (req, res) => {
 
 /**
  * 404 Handler
+ * Must come AFTER all route registrations
  */
 app.use((req, res) => {
   res.status(404).json({
@@ -88,6 +104,7 @@ app.use((req, res) => {
 
 /**
  * Global Error Handler
+ * Catches errors thrown from anywhere in the request lifecycle
  */
 app.use((err, req, res, next) => {
   logger.error('Unexpected error:', err);
@@ -100,7 +117,7 @@ app.use((err, req, res, next) => {
 });
 
 /**
- * Database Connection and Server Start
+ * Initializes database and starts HTTP server
  */
 const startServer = async () => {
   try {

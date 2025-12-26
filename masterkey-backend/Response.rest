@@ -4,7 +4,7 @@ GET {{Url}}/health
 
 ###
 
-POST {{Url}}/api/auth/signup
+POST {{Url}}/api/auth/login
 Content-Type: application/json
 
 {
@@ -12,3 +12,53 @@ Content-Type: application/json
      "email": "georgehssein@test.com",
      "password": "123445"
 }
+
+
+###
+
+POST {{Url}}/api/auth/login
+Content-Type: application/json
+
+{
+     "email": "georgehssein@gmail.com",
+     "password": "12345678"
+}
+
+###
+
+POST {{Url}}/api/auth/login
+Content-Type: application/json
+
+{
+     "username": "2Kay", 
+     "email": "2Kay@test.com",
+     "password": "1!2@3#$Sa",
+     "confirmPassword": "1!2@3#$Sa"
+} 
+###
+
+POST {{Url}}/api/auth/login
+Content-Type: application/json
+
+{
+     
+     "email": "3Kay@test.com",
+     "password": "123Abc!"
+     
+}
+###
+POST {{Url}}/api/auth/login
+Content-Type: application/json
+
+{
+     
+     "email": "4Kay@test.com",
+     "password": "1234Abc!"
+     
+}
+###
+GET {{Url}}/api/auth/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlMGJlYzVkMS1jZjc5LTQ4ZTQtOGE5Ni1hZTI5NmJlOWYwZmIiLCJpYXQiOjE3NjYwNTc4NzgsImV4cCI6MTc2NjY2MjY3OH0.OmejARBCa3rtpFsGeYB2rMcz--gJF-yk16uORmytPXc
+###
+GET {{Url}}/api/auth/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4MWQ0YmMyZS1jYzQwLTRhNzQtODEzMS1mOTFmOTIzNmVkY2YiLCJpYXQiOjE3NjYwNjk3ODksImV4cCI6MTc2NjY3NDU4OX0.Wd9Gc5fht2ewSwuQVpVVfxK9QhNCHzdL7A_m-hFFMVc

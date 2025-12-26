@@ -2,11 +2,13 @@ import { Sequelize } from 'sequelize';
 import dotenv from 'dotenv';
 import logger from '../utils/logger.js';
 
-dotenv.config();
+dotenv.config();// Already called in server.js
 
 /**
- * Sequelize PostgreSQL Database Connection
- * Configured with connection pooling and logging
+ * Sequelize PostgreSQL instance
+ *
+ * This is the SINGLE source of truth for all database connections.
+ * Every model, query, and transaction in MasterKey uses this instance.
  */
 const sequelize = new Sequelize({
   host: process.env.POSTGRES_HOST || 'localhost',
@@ -14,20 +16,33 @@ const sequelize = new Sequelize({
   database: process.env.POSTGRES_DATABASE || 'masterkey',
   username: process.env.POSTGRES_USER || 'postgres',
   password: process.env.POSTGRES_PASSWORD,
+
+  // Specify database type
   dialect: 'postgres',
   
-  // Connection pool configuration
+ /**
+   * Connection pooling
+   * Controls how many simultaneous connections Sequelize can open.
+   * This protects the database from being overwhelmed under load.
+   */
   pool: {
-    max: 10,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
+    max: 10,   // Maximum number of connections
+    min: 0,    // Minimum number of connections
+    acquire: 30000,  // Max time (ms) to get a connection before throwing error
+    idle: 10000   // Time (ms) before an idle connection is released
   },
   
-  // Logging
+   /**
+   * Logging
+   * Routed through the app's logger so it can be enabled/disabled centrally.
+   */
   logging: (msg) => logger.debug(msg),
   
-  // Disable string operators for security
+  /**
+   * SSL configuration
+   * - Disabled in development
+   * - Enabled in production for secure database communication
+   */
   dialectOptions: {
     ssl: process.env.NODE_ENV === 'production' ? {
       require: true,
@@ -35,7 +50,11 @@ const sequelize = new Sequelize({
     } : false
   },
   
-  // Timestamps
+  /**
+   * Global model defaults
+   * - Automatically adds created_at and updated_at timestamps
+   * - Uses snake_case column names instead of camelCase
+   */
   define: {
     timestamps: true,
     underscored: true
@@ -70,4 +89,5 @@ export const syncDatabase = async (force = false) => {
   }
 };
 
+// Export the sequelize instance so models and services can use it
 export default sequelize;

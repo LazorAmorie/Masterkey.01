@@ -2,6 +2,17 @@ import express from 'express';
 import * as authController from '../controllers/authController.js';
 import { authenticate } from '../middleware/authMiddleware.js';
 
+/**
+ * Authentication Routes
+ * ---------------------
+ * Handles user registration, login, and profile access.
+ * Routes define:
+ *  - HTTP method
+ *  - URL path
+ *  - Access level (public / private)
+ *  - Middleware sequence
+ */
+
 const router = express.Router();
 
 /**
